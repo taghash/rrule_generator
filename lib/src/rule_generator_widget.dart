@@ -67,7 +67,7 @@ class _RRuleGeneratorState extends State<RRuleGenerator> {
         valueChanged,
         widget.initialRRule,
         widget.initialDate ?? DateTime.now(),
-        // overrideInputDecoration: overrideInputDecoration,
+        overrideInputDecoration: widget.overrideInputDecoration,
       ),
       Weekly(
         this.config,
