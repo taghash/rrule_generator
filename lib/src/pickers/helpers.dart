@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-Container buildDropdown({required Widget child}) {
+Container buildDropdown({
+  required Widget child,
+  required BuildContext context,
+}) {
   return Container(
     decoration: BoxDecoration(
-      border: Border.all(),
+      border: Border.all(
+        color: Theme.of(context).dividerColor,
+      ),
       borderRadius: BorderRadius.circular(8),
     ),
     width: double.maxFinite,
@@ -22,13 +28,13 @@ Column buildElement({
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      if (title != null)
-        Text(
-          title,
-          style: style,
-        )
-      else
-        Container(),
+      // if (title != null)
+      //   Text(
+      //     title,
+      //     style: style,
+      //   )
+      // else
+      Container(),
       child,
     ],
   );
@@ -48,37 +54,21 @@ Widget buildToggleItem({
   required bool value,
   required TextStyle style,
 }) {
-  if (!value) {
-    return buildContainer(
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              title,
-              style: style.copyWith(fontSize: 16),
-            ),
-          ),
-          Switch(value: value, onChanged: onChanged),
-        ],
-      ),
-    );
-  }
-  return buildContainer(
-    child: Column(
-      children: [
-        Row(
+  return AnimatedSize(
+      duration: Durations.medium1,
+      child: buildContainer(
+        child: Column(
           children: [
-            Expanded(
-              child: Text(
+            SwitchListTile.adaptive(
+              value: value,
+              onChanged: onChanged,
+              title: Text(
                 title,
                 style: style.copyWith(fontSize: 16),
               ),
             ),
-            Switch(value: value, onChanged: onChanged),
+            if (value == true) child
           ],
         ),
-        child,
-      ],
-    ),
-  );
+      ));
 }

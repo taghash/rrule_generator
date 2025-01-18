@@ -24,10 +24,16 @@ class Monthly extends StatelessWidget implements Period {
   final weekdayNotifier = ValueNotifier(0);
   final dayNotifier = ValueNotifier(1);
   final intervalController = TextEditingController(text: '1');
-
-  Monthly(this.config, this.textDelegate, this.onChange, this.initialRRule,
-      this.initialDate,
-      {super.key}) {
+  final InputDecoration? overrideInputDecoration;
+  Monthly(
+    this.config,
+    this.textDelegate,
+    this.onChange,
+    this.initialRRule,
+    this.initialDate, {
+    super.key,
+    this.overrideInputDecoration,
+  }) {
     if (initialRRule.contains('MONTHLY')) {
       handleInitialRRule();
     } else {
@@ -114,6 +120,7 @@ class Monthly extends StatelessWidget implements Period {
                   intervalController,
                   onChange,
                   config: config,
+                  overrideInputDecoration: overrideInputDecoration,
                 )),
                 Padding(
                   padding: const EdgeInsets.only(left: 8),
@@ -145,6 +152,7 @@ class Monthly extends StatelessWidget implements Period {
                   title: textDelegate.on,
                   style: config.textStyle,
                   child: buildDropdown(
+                    context: context,
                     child: ValueListenableBuilder(
                       valueListenable: dayNotifier,
                       builder: (context, day, _) => DropdownButton(
@@ -202,6 +210,7 @@ class Monthly extends StatelessWidget implements Period {
                               title: textDelegate.on,
                               style: config.textStyle,
                               child: buildDropdown(
+                                context: context,
                                 child: DropdownButton(
                                   isExpanded: true,
                                   value: dayInMonth,
@@ -231,6 +240,7 @@ class Monthly extends StatelessWidget implements Period {
                               title: textDelegate.day,
                               style: config.textStyle,
                               child: buildDropdown(
+                                context: context,
                                 child: ValueListenableBuilder(
                                   valueListenable: weekdayNotifier,
                                   builder: (context, weekday, _) =>

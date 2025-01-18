@@ -19,10 +19,16 @@ class Daily extends StatelessWidget implements Period {
   final DateTime initialDate;
 
   final intervalController = TextEditingController(text: '1');
-
-  Daily(this.config, this.textDelegate, this.onChange, this.initialRRule,
-      this.initialDate,
-      {super.key}) {
+  final InputDecoration? overrideInputDecoration;
+  Daily(
+    this.config,
+    this.textDelegate,
+    this.onChange,
+    this.initialRRule,
+    this.initialDate, {
+    this.overrideInputDecoration,
+    super.key,
+  }) {
     if (initialRRule.contains('DAILY')) handleInitialRRule();
   }
 
@@ -56,6 +62,7 @@ class Daily extends StatelessWidget implements Period {
                 intervalController,
                 onChange,
                 config: config,
+                overrideInputDecoration: overrideInputDecoration,
               )),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),

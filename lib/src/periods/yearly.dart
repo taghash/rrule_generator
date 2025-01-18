@@ -23,10 +23,10 @@ class Yearly extends StatelessWidget implements Period {
   final weekdayNotifier = ValueNotifier(0);
   final monthNotifier = ValueNotifier(DateTime.now().month);
   final dayNotifier = ValueNotifier(DateTime.now().day);
-
+  final InputDecoration? overrideInputDecoration;
   Yearly(this.config, this.textDelegate, this.onChange, this.initialRRule,
       this.initialDate,
-      {super.key}) {
+      {super.key, this.overrideInputDecoration}) {
     if (initialRRule.contains('YEARLY')) {
       handleInitialRRule();
     } else {
@@ -120,6 +120,7 @@ class Yearly extends StatelessWidget implements Period {
                       title: textDelegate.months,
                       style: config.textStyle,
                       child: buildDropdown(
+                        context: context,
                         child: ValueListenableBuilder(
                           valueListenable: monthNotifier,
                           builder: (context, month, _) => DropdownButton(
@@ -160,6 +161,7 @@ class Yearly extends StatelessWidget implements Period {
                       title: textDelegate.day,
                       style: config.textStyle,
                       child: buildDropdown(
+                        context: context,
                         child: ValueListenableBuilder(
                           valueListenable: dayNotifier,
                           builder: (context, day, _) => DropdownButton(
@@ -206,6 +208,7 @@ class Yearly extends StatelessWidget implements Period {
                         title: textDelegate.on,
                         style: config.textStyle,
                         child: buildDropdown(
+                          context: context,
                           child: ValueListenableBuilder(
                             valueListenable: monthDayNotifier,
                             builder: (context, dayInMonth, _) => DropdownButton(
@@ -238,6 +241,7 @@ class Yearly extends StatelessWidget implements Period {
                         title: textDelegate.day,
                         style: config.textStyle,
                         child: buildDropdown(
+                          context: context,
                           child: ValueListenableBuilder(
                             valueListenable: weekdayNotifier,
                             builder: (context, weekday, _) => DropdownButton(
@@ -276,6 +280,7 @@ class Yearly extends StatelessWidget implements Period {
                   title: textDelegate.of,
                   style: config.textStyle,
                   child: buildDropdown(
+                    context: context,
                     child: ValueListenableBuilder(
                       valueListenable: monthNotifier,
                       builder: (context, month, _) => DropdownButton(

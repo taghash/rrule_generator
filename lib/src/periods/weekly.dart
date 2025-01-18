@@ -24,10 +24,16 @@ class Weekly extends StatelessWidget implements Period {
     7,
     (index) => ValueNotifier(false),
   );
-
-  Weekly(this.config, this.textDelegate, this.onChange, this.initialRRule,
-      this.initialDate,
-      {super.key}) {
+  final InputDecoration? overrideInputDecoration;
+  Weekly(
+    this.config,
+    this.textDelegate,
+    this.onChange,
+    this.initialRRule,
+    this.initialDate, {
+    super.key,
+    this.overrideInputDecoration,
+  }) {
     if (initialRRule.contains('WEEKLY')) {
       handleInitialRRule();
     } else {
@@ -88,6 +94,7 @@ class Weekly extends StatelessWidget implements Period {
                       intervalController,
                       onChange,
                       config: config,
+                      overrideInputDecoration: overrideInputDecoration,
                     ),
                   ),
                   Padding(

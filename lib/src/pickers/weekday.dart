@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:rrule_generator/localizations/text_delegate.dart';
 import 'package:rrule_generator/src/rrule_generator_config.dart';
@@ -21,7 +22,7 @@ class WeekdayPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: Row(
           children: List.generate(
             7,
@@ -37,23 +38,26 @@ class WeekdayPicker extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.only(right: 2),
                       alignment: Alignment.center,
-                      height: 50,
+                      height: 48, //because android recommends this height.
                       decoration: BoxDecoration(
-                          color: value
-                              ? config.weekdaySelectedBackgroundColor
-                              : config.weekdayBackgroundColor,
-                          borderRadius: BorderRadius.circular(5)),
+                        color: value
+                            ? config.weekdaySelectedBackgroundColor
+                            : config.weekdayBackgroundColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                       child: FittedBox(
                         child: Text(
                           weekday,
                           style: config.textStyle.copyWith(
-                              color: value
-                                  ? config.weekdaySelectedColor
-                                  : config.weekdayColor),
+                            color: value
+                                ? config.weekdaySelectedColor
+                                : config.weekdayColor,
+                          ),
                         ),
                       ),
                     ),
                     onTap: () {
+                      HapticFeedback.selectionClick();
                       weekdayNotifiers[index].value = !value;
                       onChange();
                     },
